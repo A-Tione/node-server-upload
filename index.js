@@ -9,8 +9,8 @@ app.get('/', (req, res) => {
 })
 
 app.options('/upload', cors())
-app.post('/upload', cors(), upload.single('file'), (req, res)=> {
-    res.send(req.file.filename)
+app.post('/upload', cors(), upload.array('files', 12), (req, res)=> {
+    res.send(JSON.stringify(req.files.map(file => file.filename)))
 })
 
 app.get('/preview/:key', cors(), (req, res)=> {
